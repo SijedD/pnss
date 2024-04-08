@@ -1,0 +1,23 @@
+{
+    "name": "gr421_vidol/pnss",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "SIJED",
+            "email": "Danilcarol56@gmail.com"
+        }
+    ],
+
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 | ^8.0"
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "core/Src/",
+            "": "app/"
+        }
+    }
+}
