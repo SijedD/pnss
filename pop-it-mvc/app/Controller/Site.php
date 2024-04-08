@@ -1,20 +1,15 @@
 <?php
-
-namespace pnss\pop-it-mvc\app\Controller;
-
-use mvc\app\Model\Post;
-use mvc\core\Src\View;
+namespace Controller;
 
 class Site
 {
-   public function index(): string
-   {
-       $posts = Post::all();
-       return (new View())->render('site.post', ['posts' => $posts]);
-   }
+    public function index(): void
+    {
+        echo 'working index';
+    }
 
-   public function hello(): string
-   {
-       return new View('site.hello', ['message' => 'hello working']);
-   }
+    public function hello(): void
+    {
+        echo 'working hello';
+    }
 }
