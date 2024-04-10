@@ -3,6 +3,7 @@
 namespace Src;
 
 use Error;
+
 class Request
 {
     protected array $body;
@@ -43,5 +44,4 @@ class Request
         }
         throw new Error('Accessing a non-existent property');
     }
-
 }
