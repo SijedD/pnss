@@ -1,11 +1,15 @@
-<h2>Регистрация нового пользователя</h2>
-<h3><?= $message ?? ''; ?></h3>
-<form method="post">
-    <label>Имя <input type="text" name="name"></label><br>
-    <label>Фамилия <input type="text" name="surname"></label><br>
-    <label>Отчество <input type="text" name="patronymic"></label><br>
-    <label>Дата рождения <input type="text" name="date"></label><br>
-    <label>Логин <input type="text" name="login"></label><br>
-    <label>Пароль <input type="password" name="password"></label><br>
-    <button>Зарегистрироваться</button>
-</form>
+<link rel="stylesheet" href="/pnss/pop-it-mvc/public/css/styles.css">
+<div class="container">
+    <div class="header">
+        <h2>Регистрация нового пользователя</h2></div>
+<div class="regForm">
+    <form method="post">
+    <label><input type="text" name="name" placeholder="Имя" class="inputReg"></label><br>
+    <label><input type="text" name="surname" placeholder="Фамилия" class="inputReg"></label><br>
+    <label><input type="text" name="patronymic" placeholder="Отчество" class="inputReg"></label><br>
+    <label><input type="text" name="date" placeholder="Дата рождения" class="inputReg"></label><br>
+    <label><input type="text" name="login" placeholder="Логин" class="inputReg"></label><br>
+    <label><input type="password" name="password" placeholder="Пароль" class="inputReg"></label><br>
+    <button class="butReg">Добавить</button>
+</form></div><a class="logout" href="<?= app()->route->getUrl('/') ?>"> Назад
+    </a><br></div>

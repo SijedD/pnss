@@ -40,7 +40,7 @@ class Site
         }
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
-            app()->route->redirect('/');
+            app()->route->redirect('/admin');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);
@@ -54,6 +54,30 @@ class Site
 
     public function admin(): string {
         return new View('site.AdminPage');
+    }
+    public function sis(): string {
+        return new View('site.SisAdminPage');
+    }
+    public function add(): string {
+        return new View('site.AddNewAbonent');
+    }
+    public function addRoom(): string {
+        return new View('site.addRoom');
+    }
+    public function addNumber(): string {
+        return new View('site.addNumber');
+    }
+    public function AttachAbonent(): string {
+        return new View('site.AttachAbonent');
+    }
+    public function searchAbonent(): string {
+        return new View('site.searchAbonent');
+    }
+    public function searchNumber(): string {
+        return new View('site.searchNumber');
+    }
+    public function CountingNumber(): string {
+        return new View('site.CountingNumber');
     }
 
 }

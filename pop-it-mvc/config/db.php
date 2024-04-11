@@ -2,9 +2,9 @@
 return [
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'gbikybee_m2',
-    'username' => 'gbikybee',
-    'password' => 'saVKm6',
+    'database' => 'db',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => '',

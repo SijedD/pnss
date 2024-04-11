@@ -9,6 +9,6 @@ class AdminMiddleware
 {
     public function handle(Request $request): void
     {
-        if (!Auth::checkAdmin()) app()->route->redirect('/signup');
+        if (!Auth::checkAdmin()) app()->route->redirect('/sis');
     }
 }
