@@ -1,10 +1,10 @@
 <?php
 return [
     'driver' => 'mysql',
-    'host' => '127.0.0.1',
-    'database' => 'bd',
-    'username' => 'root',
-    'password' => '',
+    'host' => 'localhost',
+    'database' => 'gbikybee_m2',
+    'username' => 'gbikybee',
+    'password' => 'saVKm6',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => '',

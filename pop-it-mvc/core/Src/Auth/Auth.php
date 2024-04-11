@@ -2,6 +2,7 @@
 
 namespace Src\Auth;
 
+use Model\User;
 use Src\Session;
 
 class Auth
@@ -49,6 +50,12 @@ class Auth
             return true;
         }
         return false;
+    }
+
+    public static function checkAdmin()
+    {
+        if (self::user()->admin === 1) return true;
+        else return false;
     }
 
     //Выход текущего пользователя
