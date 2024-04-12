@@ -54,7 +54,6 @@ class Auth
 
     public static function checkAdmin()
     {
-
         if (self::user()->admin === 1)  return true;
         else return false;
     }

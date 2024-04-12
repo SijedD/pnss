@@ -4,34 +4,27 @@
         <h2> Прикрепить абонента к номеру телефона.</h2></div>
     <div class="AttachAbonentForm">
         <form method="post">
-            <div class="dropdown">
-                <label ><input type="text" name="name" placeholder="Имя" class="inputRoom" > <a class="drop"> > </a> </label>
+            <select name="id_subscribers" class="inputReg">
+                <?php
 
+                use Model\Phone_number;
 
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
-            <div class="dropdown">
-                <label ><input type="text" name="surname" placeholder="Фамилия" class="inputRoom" > <a class="drop"> > </a> </label>
+                foreach ($divisions as $Phone_number) {
+                    echo "<option label='$Phone_number->surname $Phone_number->name $Phone_number->patronymic'>$Phone_number->id</option>";
+                }
+                ?>
+            </select><br>
 
+            <select name="id_phone" class="inputReg">
+                <?php
 
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
-            <div class="dropdown">
-                <label ><input type="text" name="patronymic" placeholder="Отчество" class="inputRoom" > <a class="drop"> > </a> </label>
+                use Model\Phone;
 
-
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
-            <div class="dropdown">
-                <label ><input type="text" name="number" placeholder="Номер телефона" class="inputRoom" > <a class="drop"> > </a> </label>
-
-
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
+                foreach ($phone as $Phone) {
+                    echo "<option label='$Phone->phone_number'>$Phone->id</option>";
+                }
+                ?>
+            </select><br>
 
             <button class="butReg">Добавить</button>
         </form></div>

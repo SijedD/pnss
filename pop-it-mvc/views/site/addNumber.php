@@ -4,14 +4,14 @@
         <h2> Добавления новых телефонов</h2></div>
     <div class="roomForm">
         <form method="post">
-            <label><input type="text" name="number" placeholder="Номер телефона" class="inputRoom"></label><br>
-            <div class="dropdown">
-                <label ><input type="text" name="room" placeholder="Помещение" class="inputRoom" > <a class="drop"> > </a> </label>
-
-
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
+            <label><input type="text" name="phone_number" placeholder="Номер телефона" class="inputRoom"></label><br>
+            <select name="id_premises" class="inputRoom">
+                <?php
+                foreach ($divisions as $Room) {
+                    echo "<option label='$Room->room_name_number'>$Room->id</option>";
+                }
+                ?>
+            </select><br>
             <button class="butReg">Добавить</button>
         </form></div><a class="logout" href="<?= app()->route->getUrl('/') ?>"> Назад
     </a><br></div>

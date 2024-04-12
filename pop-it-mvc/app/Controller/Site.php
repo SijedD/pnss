@@ -2,7 +2,12 @@
 
 namespace Controller;
 
+use Model\Division;
+use Model\Phone;
+use Model\Phone_number;
 use Model\Post;
+use Model\Room;
+use Model\Subscriber;
 use Src\Request;
 use Src\View;
 use Model\User;
@@ -58,17 +63,38 @@ class Site
     public function sis(): string {
         return new View('site.SisAdminPage');
     }
-    public function add(): string {
-        return new View('site.AddNewAbonent');
+    public function add($request): string {
+        if ($request->method === 'POST' && Subscriber::create($request->all())) {
+            app()->route->redirect('/sis');
+        }
+        $divisions = Division::all();
+
+        return new View('site.AddNewAbonent', ['divisions' => $divisions]);
     }
-    public function addRoom(): string {
-        return new View('site.addRoom');
+    public function addRoom($request): string {
+        if ($request->method === 'POST' && Room::create($request->all())) {
+            app()->route->redirect('/sis');
+        }
+        $divisions = Division::all();
+
+        return new View('site.addRoom', ['divisions' => $divisions]);
     }
-    public function addNumber(): string {
-        return new View('site.addNumber');
+    public function addNumber($request): string {
+        if ($request->method === 'POST' && Phone::create($request->all())) {
+            app()->route->redirect('/sis');
+        }
+        $divisions = Room::all();
+
+        return new View('site.addNumber', ['divisions' => $divisions]);
     }
-    public function AttachAbonent(): string {
-        return new View('site.AttachAbonent');
+    public function AttachAbonent($request): string {
+        if ($request->method === 'POST' && Phone_number::create($request->all())) {
+            app()->route->redirect('/sis');
+        }
+        $divisions = Subscriber::all();
+        $phone = Phone::all();
+
+        return new View('site.AttachAbonent', ['divisions' => $divisions, 'phone'=> $phone] );
     }
     public function searchAbonent(): string {
         return new View('site.searchAbonent');
