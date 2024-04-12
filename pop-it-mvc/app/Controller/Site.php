@@ -5,25 +5,43 @@ namespace Controller;
 use Model\Division;
 use Model\Phone;
 use Model\Phone_number;
-use Model\Post;
 use Model\Room;
 use Model\Subscriber;
 use Src\Request;
 use Src\View;
 use Model\User;
 use Src\Auth\Auth;
-
+use Src\Validator\Validator;
 
 
 class Site
 {
     public function signup(Request $request): string
     {
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/');
+        if ($request->method === 'POST') {
+
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'login' => ['required', 'unique:users,login'],
+                'password' => ['required']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+
+            if($validator->fails()){
+                return new View('site.signup',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
+            }
+
+            if (User::create($request->all())) {
+                app()->route->redirect('/');
+            }
         }
         return new View('site.signup');
     }
+
+
 
 
     public function index(Request $request): string
@@ -96,8 +114,18 @@ class Site
 
         return new View('site.AttachAbonent', ['divisions' => $divisions, 'phone'=> $phone] );
     }
-    public function searchAbonent(): string {
-        return new View('site.searchAbonent');
+    public function searchAbonent($request): string {
+
+
+            // Получаем значения из запроса
+            $phoneNumber = Phone::all();
+            $divisions = Subscriber::all();
+            $abonent = Division::all();
+
+
+            // Возвращаем результаты в представление
+            return new View('site.searchAbonent',['divisions' => $divisions, 'abonent' =>$abonent, 'phoneNumber'=>$phoneNumber]);
+
     }
     public function searchNumber(): string {
         return new View('site.searchNumber');
