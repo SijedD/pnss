@@ -28,7 +28,6 @@ class Site
                 'required' => 'Поле :field пусто',
                 'unique' => 'Поле :field должно быть уникально'
             ]);
-
             if($validator->fails()){
                 return new View('site.signup',
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
@@ -37,12 +36,11 @@ class Site
             if (User::create($request->all())) {
                 app()->route->redirect('/');
             }
+
         }
+
         return new View('site.signup');
     }
-
-
-
 
     public function index(Request $request): string
     {
