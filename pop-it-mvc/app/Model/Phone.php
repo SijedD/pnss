@@ -12,8 +12,10 @@ class Phone extends Model
 
     protected $fillable = [
         'phone_number',
-        'id_premises'
+        'id_rooms'
 
     ];
+
+    protected $table = 'phones';
 
 }

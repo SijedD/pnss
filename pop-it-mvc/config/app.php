@@ -10,8 +10,8 @@ return [
         'admin' => \Middlewares\AdminMiddleware::class
     ],
     'validators' => [
-        'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class
+        'required' => Validator\RequireValidator::class,
+        'unique' => Validator\UniqueValidator::class
     ],
     'routeAppMiddleware' => [
         'csrf' => \Middlewares\CSRFMiddleware::class,

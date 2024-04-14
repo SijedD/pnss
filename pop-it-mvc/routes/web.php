@@ -6,8 +6,8 @@ Route::add('GET', '/', [Controller\Site::class, 'hello'])
     ->middleware('auth','admin');
 Route::add('GET', '/admin',[Controller\Site::class, 'admin'])
     ->middleware('admin');
-Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'signup']);
-
+Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'signup'])
+    ->middleware('auth','admin');
 Route::add(['GET', 'POST'], '/login', [Controller\Site::class, 'login']);
 Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
 Route::add('GET', '/sis', [Controller\Site::class, 'sis'])

@@ -22,6 +22,9 @@ class Site
 
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
+                'surname' => ['required'],
+                'patronymic' => ['required'],
+                'date' => ['required'],
                 'login' => ['required', 'unique:users,login'],
                 'password' => ['required']
             ], [
@@ -40,12 +43,6 @@ class Site
         }
 
         return new View('site.signup');
-    }
-
-    public function index(Request $request): string
-    {
-        $posts = Post::where('id', $request->id)->get();
-        return (new View())->render('site.post', ['posts' => $posts]);
     }
 
     public function hello(): string
@@ -80,24 +77,67 @@ class Site
         return new View('site.SisAdminPage');
     }
     public function add($request): string {
-        if ($request->method === 'POST' && Subscriber::create($request->all())) {
-            app()->route->redirect('/sis');
-        }
-        $divisions = Division::all();
 
+
+
+        if ($request->method === 'POST') {
+            $divisions = Division::all();
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'surname' => ['required'],
+                'patronymic' => ['required'],
+                'date_birth' => ['required'],
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if($validator->fails()){
+                return new View('site.AddNewAbonent',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE),'divisions' => $divisions ]);
+            }
+            if (Subscriber::create($request->all())){
+            app()->route->redirect('/sis');}
+        }
+
+        $divisions = Division::all();
         return new View('site.AddNewAbonent', ['divisions' => $divisions]);
     }
     public function addRoom($request): string {
-        if ($request->method === 'POST' && Room::create($request->all())) {
-            app()->route->redirect('/sis');
+        $divisions = Division::all();
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'room_name_number' => ['required'],
+                'room_type' => ['required'],
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if($validator->fails()){
+                return new View('site.AddRoom',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE),'divisions' => $divisions ]);
+            }
+            if (Room::create($request->all())){
+            app()->route->redirect('/sis');}
         }
         $divisions = Division::all();
 
         return new View('site.addRoom', ['divisions' => $divisions]);
     }
     public function addNumber($request): string {
-        if ($request->method === 'POST' && Phone::create($request->all())) {
-            app()->route->redirect('/sis');
+        $divisions = Room::all();
+        if ($request->method === 'POST' ) {
+            $validator = new Validator($request->all(), [
+                'phone_number' => ['required']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if($validator->fails()){
+                return new View('site.AddNumber',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE),'divisions' => $divisions ]);
+            }
+            if(Phone::create($request->all())){
+            app()->route->redirect('/sis');}
         }
         $divisions = Room::all();
 
@@ -113,23 +153,51 @@ class Site
         return new View('site.AttachAbonent', ['divisions' => $divisions, 'phone'=> $phone] );
     }
     public function searchAbonent($request): string {
+        $subscribers = Subscriber::all();
+        $divisions = Division::all();
+        $id = $request->get('id');
 
 
-            // Получаем значения из запроса
-            $phoneNumber = Phone::all();
-            $divisions = Subscriber::all();
-            $abonent = Division::all();
+        $findAbonent = Division::whereHas('rooms', function ($query) use ( $id) {
+            $query->where('id', 'like', "%{$id}%");
+        })->with('rooms.phones')->get();
 
 
-            // Возвращаем результаты в представление
-            return new View('site.searchAbonent',['divisions' => $divisions, 'abonent' =>$abonent, 'phoneNumber'=>$phoneNumber]);
+        return (new View())->render('site.searchAbonent', ['subscribers' => $subscribers, 'divisions'=>$divisions, 'findAbonent' => $findAbonent]);
+
 
     }
-    public function searchNumber(): string {
-        return new View('site.searchNumber');
+
+
+    public function searchNumber($request): string {
+        $subscribers = Subscriber::all();
+        $name = $request->get('name');
+        $surname = $request->get('surname');
+        $patronymic = $request->get('patronymic');
+        $findAbonent = Subscriber::whereHas('phoneNumber', function ($query) use ($name, $surname, $patronymic) {
+            $query->where('name', 'like', "%{$name}%")
+                ->where('surname', 'like', "%{$surname}%")
+                ->where('patronymic', 'like', "%{$patronymic}%");
+        })->with('phoneNumber.phone')->get();
+        return new View('site.searchNumber', ['subscribers' => $subscribers,'findAbonent' => $findAbonent]);
     }
-    public function CountingNumber(): string {
-        return new View('site.CountingNumber');
+    public function CountingNumber($request): string {
+        // Получаем ID подразделения из запроса
+        $divisionId = $request->get('Id_divisions');
+        // Находим количество абонентов в выбранном подразделении
+        $countAbonents = Subscriber::where('Id_divisions', $divisionId)->count();
+        // Получаем все подразделения для отображения в выпадающем списке
+        $divisions = Division::all();
+
+        $id_rooms = $request->get('id_rooms');
+        $countAbonentsroom = Subscriber::where('id_rooms', $id_rooms)->count();
+        $rooms = Room::all();
+        // Передаем данные в представление
+        return (new View())->render('site.CountingNumber', [
+            'countAbonents' => $countAbonents,
+            'divisions' => $divisions, 'rooms' => $rooms,'countAbonentsroom'=>$countAbonentsroom
+        ]);
     }
+
 
 }

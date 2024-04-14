@@ -4,6 +4,7 @@
         <h2> Прикрепить абонента к номеру телефона.</h2></div>
     <div class="AttachAbonentForm">
         <form method="post">
+            <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
             <select name="id_subscribers" class="inputReg">
                 <?php
 

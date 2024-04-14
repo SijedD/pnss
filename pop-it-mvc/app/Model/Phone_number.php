@@ -16,4 +16,11 @@ class Phone_number extends Model
 
     ];
 
+    protected $table = 'phone_numbers';
+
+    public function phone()
+    {
+        return $this->belongsTo(Phone::class, 'id_phone', 'id');
+    }
+
 }

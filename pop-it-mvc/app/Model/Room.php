@@ -18,4 +18,9 @@ class Room extends Model
     ];
 
     protected $table = 'rooms';
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'id_rooms', 'id');
+    }
 }

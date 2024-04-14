@@ -3,32 +3,51 @@
     <div class="header">
         <h2> Поиск всех номеров абонента.</h2></div>
     <div class="searchNumberForm">
-        <form method="post">
-            <div class="dropdown">
-                <label ><input type="text" name="name" placeholder="Имя" class="inputRoom" > <a class="drop"> > </a> </label>
+        <form name="search" method="get" action="<?= app()->route->geturl('/searchNumber') ?>">
+            <select name="name" class="inputReg">
+                <?php
 
+                use Model\Subscriber;
 
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
-            <div class="dropdown">
-                <label ><input type="text" name="surname" placeholder="Фамилия" class="inputRoom" > <a class="drop"> > </a> </label>
+                foreach ($subscribers as $subscriber) {
+                    echo "<option label='$subscriber->name'>$subscriber->name</option>";
+                }
+                ?>
+            </select><br>
+            <select name="surname" class="inputReg">
+                <?php
 
+                foreach ($subscribers as $subscriber) {
+                    echo "<option label='$subscriber->surname'>$subscriber->surname</option>";
+                }
+                ?>
+            </select><br>
+            <select name="patronymic" class="inputReg">
+                <?php
 
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
-            <div class="dropdown">
-                <label ><input type="text" name="patronymic" placeholder="Отчество" class="inputRoom" > <a class="drop"> > </a> </label>
+                foreach ($subscribers as $subscriber) {
+                    echo "<option label='$subscriber->patronymic'>$subscriber->patronymic</option>";
+                }
+                ?>
+            </select><br>
 
-
-                <div class="dropdown-content">
-                    <p>dsa</p>
-                </div></div><br>
 
 
             <button class="butReg">Поиск</button>
         </form></div>
+    <!-- Вывод результатов поиска -->
+    <?php if (!empty($findAbonent)): ?>
+        <h3>Результаты поиска:</h3>
+        <ul>
+            <?php foreach ($findAbonent as $abonent): ?>
+                <li>
+                    номер: <?=$abonent->phoneNumber?><br>
+
+                    <!-- Другие данные абонента, которые вам нужны -->
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
     <a class="logout" href="<?= app()->route->getUrl('/') ?>"> Назад
     </a><br>
 </div>

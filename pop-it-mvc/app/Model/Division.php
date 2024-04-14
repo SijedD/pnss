@@ -9,4 +9,9 @@ class Division extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'id', 'id_rooms');
+    }
 }

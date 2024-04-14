@@ -17,4 +17,15 @@ class Subscriber extends Model
         'date_birth',
         'Id_divisions'
     ];
+
+    public function phoneNumber()
+    {
+        return $this->hasMany(Phone_number::class, 'id_subscribers', 'id');
+    }
+
+
+    public function division()
+    {
+        return $this->hasMany(Division::class, 'id', 'id_divisions');
+    }
 }
