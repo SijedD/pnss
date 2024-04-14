@@ -12,6 +12,11 @@
     <label><input type="date" name="date" placeholder="Дата рождения" class="inputReg"></label><br>
     <label><input type="text" name="login" placeholder="Логин" class="inputReg"></label><br>
     <label><input type="password" name="password" placeholder="Пароль" class="inputReg"></label><br>
+
+
+            <input type="file" name='image_path'><br>
+
+
     <button class="butReg">Добавить</button>
 </form></div><a class="logout" href="<?= app()->route->getUrl('/') ?>"> Назад
     </a><br></div>

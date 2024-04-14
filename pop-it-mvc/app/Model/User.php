@@ -17,7 +17,8 @@ class User extends Model implements IdentityInterface
         'patronymic',
         'date',
         'login',
-        'password'
+        'password',
+        'image_path'
     ];
 
     protected static function booted()

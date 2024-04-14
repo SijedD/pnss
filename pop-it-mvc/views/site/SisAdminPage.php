@@ -3,6 +3,12 @@
 <div class="container">
     <div class="header">
         <h2>Главная страница системного администратора</h2></div>
+        <?php
+        $user = \Model\User::find(app()->auth::user()->id);
+        $image_path = $user->image_path;
+        echo "<img height='100px' width='100px' src='/pnss/pop-it-mvc/public/img/$image_path' alt='Аватар пользователя'>";
+        ?>
+
 
     <a class="butSis" href="<?= app()->route->getUrl('/add') ?>"> Добавить нового абонента
     </a><br>

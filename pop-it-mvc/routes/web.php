@@ -19,3 +19,4 @@ Route::add(['GET', 'POST'], '/AttachAbonent', [Controller\Site::class, 'AttachAb
 Route::add('GET', '/searchAbonent', [Controller\Site::class, 'searchAbonent']);
 Route::add('GET', '/searchNumber', [Controller\Site::class, 'searchNumber']);
 Route::add('GET', '/CountingNumber', [Controller\Site::class, 'CountingNumber']);
+Route::add(['GET', 'POST'], '/upload', [Controller\Site::class, 'upload']);
