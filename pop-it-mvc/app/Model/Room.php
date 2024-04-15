@@ -19,8 +19,9 @@ class Room extends Model
 
     protected $table = 'rooms';
 
-    public function phones()
+    public function division()
     {
-        return $this->hasMany(Phone::class, 'id_rooms', 'id');
+        return $this->belongsTo(Division::class, 'id_divisions');
     }
+
 }

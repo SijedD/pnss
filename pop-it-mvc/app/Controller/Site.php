@@ -178,13 +178,23 @@ class Site
         $divisions = Division::all();
         $id = $request->get('id');
 
+        if ($request->method === 'POST') {
+            $subscriber = Subscriber::find($request->get('subscriberId'));
+            $divisionId = Division::find($request->get('divisionsId'))->id;
 
-        $findAbonent = Division::whereHas('rooms', function ($query) use ($id) {
-            $query->where('id', 'like', "%{$id}%");
-        })->with('rooms.phones')->get();
+            $phones = $subscriber->phones()->whereHas('room', function ($query) use ($divisionId) {
+               $query->where('id_divisions', $divisionId);
+            })->get();
+
+            if (!is_null($subscriber->phones())) {
+                return (new View())->render('site.searchAbonent', ['subscribers' => $subscribers, 'divisions' => $divisions, 'findAbonent' => $phones]);
+            }
+
+        }
 
 
-        return (new View())->render('site.searchAbonent', ['subscribers' => $subscribers, 'divisions' => $divisions, 'findAbonent' => $findAbonent]);
+
+        return (new View())->render('site.searchAbonent', ['subscribers' => $subscribers, 'divisions' => $divisions]);
 
 
     }

@@ -41,7 +41,10 @@
         <ul>
             <?php foreach ($findAbonent as $abonent): ?>
                 <li>
-                    номер: <?=$abonent->phoneNumber?><br>
+                    <?php
+                    foreach ($abonent->phoneNumber as $number)
+                        echo "<p>номер:" . $number['phone']['phone_number'] . "</p>";
+                    ?>
 
                     <!-- Другие данные абонента, которые вам нужны -->
                 </li>

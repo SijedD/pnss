@@ -12,6 +12,6 @@ class Division extends Model
 
     public function rooms()
     {
-        return $this->hasMany(Room::class, 'id', 'id_rooms');
+        return $this->hasMany(Room::class);
     }
 }

@@ -16,7 +16,7 @@ Route::add(['GET', 'POST'], '/add', [Controller\Site::class, 'add']);
 Route::add(['GET', 'POST'], '/addRoom', [Controller\Site::class, 'addRoom']);
 Route::add(['GET', 'POST'], '/addNumber', [Controller\Site::class, 'addNumber']);
 Route::add(['GET', 'POST'], '/AttachAbonent', [Controller\Site::class, 'AttachAbonent']);
-Route::add('GET', '/searchAbonent', [Controller\Site::class, 'searchAbonent']);
+Route::add(['GET', 'POST'], '/searchAbonent', [Controller\Site::class, 'searchAbonent']);
 Route::add('GET', '/searchNumber', [Controller\Site::class, 'searchNumber']);
 Route::add('GET', '/CountingNumber', [Controller\Site::class, 'CountingNumber']);
 Route::add(['GET', 'POST'], '/upload', [Controller\Site::class, 'upload']);

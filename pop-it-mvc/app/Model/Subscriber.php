@@ -24,8 +24,19 @@ class Subscriber extends Model
     }
 
 
+//
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'id_rooms');
+    }
+
+    public function phones()
+    {
+        return $this->hasManyThrough(Phone::class, Phone_number::class, 'id_subscribers', 'id', 'id', 'id_phone');
+    }
+
     public function division()
     {
-        return $this->hasMany(Division::class, 'id', 'id_divisions');
+        return $this->belongsTo(Division::class, 'id_divisions');
     }
 }

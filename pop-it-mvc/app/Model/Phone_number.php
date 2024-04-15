@@ -23,4 +23,9 @@ class Phone_number extends Model
         return $this->belongsTo(Phone::class, 'id_phone', 'id');
     }
 
+    public function subscriber()
+    {
+        return $this->belongsTo(Subscriber::class, 'id_subscribers');
+    }
+
 }
