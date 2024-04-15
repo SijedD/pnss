@@ -15,6 +15,8 @@
                 }
                 ?>
             </select><br>
+            <br>
+            <label class="inputReg">Выберете номер телефона</label><br>
 
             <select name="id_phone" class="inputReg">
                 <?php

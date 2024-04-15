@@ -15,6 +15,8 @@
                 }
                 ?>
             </select>
+            <br><br>
+            <label class="inputReg">Выберете подразделение</label><br>
             <select name="divisionsId" class="inputReg">
                 <?php
 

@@ -10,9 +10,10 @@
             <label><input type="text" name="name" placeholder="Имя" class="inputReg"></label><br>
             <label><input type="text" name="surname" placeholder="Фамилия" class="inputReg"></label><br>
             <label><input type="text" name="patronymic" placeholder="Отчество" class="inputReg"></label><br>
-            <label><input type="date" name="date_birth" placeholder="Дата рождения" class="inputReg"></label><br>
+            <label><input type="date" name="date_birth" placeholder="Дата рождения" class="inputReg"></label><br><br>
+            <label class="inputReg">Выберете подразделение</label><br>
+            <select name="Id_divisions" class="inputReg">
 
-                <select name="Id_divisions" class="inputReg">
                     <?php
                         foreach ($divisions as $divison) {
                             echo "<option>$divison->id</option>";

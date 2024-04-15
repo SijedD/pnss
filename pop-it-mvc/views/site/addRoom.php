@@ -11,7 +11,8 @@
                 <label><input type="text" name="room_type" placeholder="Вид помещения" class="inputRoom" > </label>
 
 
-                <br>
+                <br><br>
+            <label class="inputReg">Выберете подразделение</label><br>
             <select name="id_divisions" class="inputRoom">
                 <?php
                 foreach ($divisions as $divison) {
