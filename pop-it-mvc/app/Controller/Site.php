@@ -38,9 +38,7 @@ class Site
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
             }
             $image_path = $_FILES['image_path']['name'];
-
             $target_dir = __DIR__ . '/../../public/img/';
-
             $target_file = $target_dir . basename($image_path);
             $fileName = $_FILES['image_path']['name'];
             if (move_uploaded_file($_FILES["image_path"]["tmp_name"], $target_file)){
@@ -174,8 +172,26 @@ class Site
 
     public function AttachAbonent($request): string
     {
-        if ($request->method === 'POST' && Phone_number::create($request->all())) {
+
+        if ($request->method === 'POST') {
+            $divisions = Subscriber::all();
+            $phone = Phone::all();
+            $validator = new Validator($request->all(), [
+                'id_phone' => ['required','unique:phone_numbers,id_phone']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if ($validator->fails()) {
+                return new View('site.AttachAbonent',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE),'divisions' => $divisions, 'phone' => $phone]);
+            }
+
+
+        if(Phone_number::create($request->all())) {
             app()->route->redirect('/sis');
+        }
+
         }
         $divisions = Subscriber::all();
         $phone = Phone::all();
@@ -244,6 +260,27 @@ class Site
         ]);
     }
 
+    public function addDivisions($request):string{
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'type_division' => ['required']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+            if ($validator->fails()) {
+                return new View('site.addDivisions',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
+            }
+            if (Division::create($request->all())) {
+                app()->route->redirect('/sis');
+            }
+        }
+
+        return new View('site.addDivisions');
+    }
+
     public function upload(Request $request)
     {
         if ($request->method === 'POST') {
@@ -261,6 +298,23 @@ class Site
             return new View( 'site.SisAdminPage');
 
     }
+
+    public function SearchUser(Request $request): string
+    {
+            $subscriber = Subscriber::all();
+        if ($request->method === 'POST' && isset($_POST['search_query'])) {
+            $search_query = $_POST['search_query'];
+            if (!empty($search_query)) {        // Фильтрация уведомлений по названию, содержащему введенный запрос
+            $subscriber = Subscriber::where('name', 'LIKE', "%$search_query%")
+                ->orWhere('surname', 'LIKE', "%$search_query%")
+                ->orWhere('patronymic', 'LIKE', "%$search_query%")->get();    }
+    }
+
+            return new View('site.SearchUser', ['subscriber' => $subscriber]);
+
+
+    }
+
 }
 
 

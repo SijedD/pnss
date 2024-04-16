@@ -20,3 +20,5 @@ Route::add(['GET', 'POST'], '/searchAbonent', [Controller\Site::class, 'searchAb
 Route::add('GET', '/searchNumber', [Controller\Site::class, 'searchNumber']);
 Route::add('GET', '/CountingNumber', [Controller\Site::class, 'CountingNumber']);
 Route::add(['GET', 'POST'], '/upload', [Controller\Site::class, 'upload']);
+Route::add(['GET', 'POST'], '/addDivisions', [Controller\Site::class, 'addDivisions']);
+Route::add(['GET', 'POST'], '/SearchUser', [Controller\Site::class, 'SearchUser']);

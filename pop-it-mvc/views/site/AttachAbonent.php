@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/pnss/pop-it-mvc/public/css/styles.css">
 <div class="container">
     <div class="header">
+        <h3><?= $message ?? ''; ?></h3>
         <h2> Прикрепить абонента к номеру телефона.</h2></div>
     <div class="AttachAbonentForm">
         <form method="post">
