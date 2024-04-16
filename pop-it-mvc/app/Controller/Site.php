@@ -21,7 +21,7 @@ class Site
     public function signup(Request $request): string
     {
         if ($request->method === 'POST') {
-
+            $data = $request->all();
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
                 'surname' => ['required'],
@@ -38,13 +38,24 @@ class Site
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
             }
             $image_path = $_FILES['image_path']['name'];
-            $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/pnss/pop-it-mvc/images/";
-            $target_file = $target_dir . basename($image_path);
-            move_uploaded_file($_FILES["image_path"]["tmp_name"], $target_file);
 
-            if (User::create($request->all())) {
-                app()->route->redirect('/');
-            }
+            $target_dir = __DIR__ . '/../../public/img/';
+
+            $target_file = $target_dir . basename($image_path);
+            $fileName = $_FILES['image_path']['name'];
+            if (move_uploaded_file($_FILES["image_path"]["tmp_name"], $target_file)){
+
+                if (User::create([
+                    'name' => $data['name'],
+                    'surname' => $data['surname'],
+                    'patronymic' => $data['patronymic'],
+                    'date' => $data['date'],
+                    'login' => $data['login'],
+                    'password' => $data['password'],
+                    'image_path' => $fileName
+                ])) {
+                    app()->route->redirect('/');
+                }};
 
         }
 
