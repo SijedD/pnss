@@ -16,7 +16,8 @@
         "illuminate/events": "10.x-dev",
         "nikic/fast-route": "2.0.x-dev",
       "ext-json": "*",
-        "sijedd/collect": "dev-master"
+        "sijedd/collect": "dev-master",
+        "sijedd/subscriber_search": "dev-master"
     },
     "autoload": {
         "psr-4": {

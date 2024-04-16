@@ -2,9 +2,8 @@
 
 namespace Controller;
 
-use Model\Division;
 
-use Model\Image;
+use search\SubscriberSearch;
 use Model\Phone;
 use Model\Phone_number;
 use Model\Room;
@@ -301,16 +300,16 @@ class Site
 
     public function SearchUser(Request $request): string
     {
-            $subscriber = Subscriber::all();
+        $subscriber = Subscriber::all();
+
         if ($request->method === 'POST' && isset($_POST['search_query'])) {
             $search_query = $_POST['search_query'];
-            if (!empty($search_query)) {        // Фильтрация уведомлений по названию, содержащему введенный запрос
-            $subscriber = Subscriber::where('name', 'LIKE', "%$search_query%")
-                ->orWhere('surname', 'LIKE', "%$search_query%")
-                ->orWhere('patronymic', 'LIKE', "%$search_query%")->get();    }
-    }
+            if (!empty($search_query)) {
+                $subscriber = SubscriberSearch::search(Subscriber::query(), $search_query);
+            }
+        }
 
-            return new View('site.SearchUser', ['subscriber' => $subscriber]);
+        return new View('site.SearchUser', ['subscriber' => $subscriber]);
 
 
     }

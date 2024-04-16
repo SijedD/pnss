@@ -11,5 +11,7 @@
         <div class="notification">
             <h3><?='Пользователь: ', $user->surname,' ', $user->name, ' ' ,$user->patronymic ?></h3>
         </div>
-    <?php endforeach; ?>
+    <?php endforeach; ?><br>
+    <a class="logout" href="<?= app()->route->getUrl('/') ?>"> Назад
+    </a><br>
 </div>
