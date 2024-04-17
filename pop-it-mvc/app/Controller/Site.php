@@ -52,6 +52,7 @@ class Site
                     'image_path' => $fileName
                 ])) {
                     app()->route->redirect('/');
+                    return false;
                 }};
 
         }

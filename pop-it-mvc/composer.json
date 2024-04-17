@@ -24,5 +24,8 @@
             "Src\\": "core/Src/",
             "": "app/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
     }
 }
