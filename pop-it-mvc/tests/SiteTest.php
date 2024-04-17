@@ -58,11 +58,48 @@ class SiteTest extends TestCase
         ];
     }
 
+
+        #[DataProvider('authProvider')]
+    public function testLogin(string $httpMethod, array $userData, string $message): void
+    {
+        // Создаем заглушку для класса Request.
+            $request = $this->createMock(\Src\Request::class);
+            // Переопределяем метод all() и свойство method
+            $request->expects($this->any())
+                ->method('all')
+                ->willReturn($userData);
+            $request->method = $httpMethod;
+
+            //Сохраняем результат работы метода в переменную
+            $result = (new \Controller\Site())->login($request);
+
+            if (!empty($result)) {
+                //Проверяем варианты с ошибками валидации
+                $message = '/' . preg_quote($message, '/') . '/';
+                $this->expectOutputRegex($message);
+                return;
+            }
+    }
+
+    // Метод, возвращающий набор тестовых данных
+    public static function authProvider(): array
+    {
+        return [
+            ['GET', ['login' => '', 'password' => ''],
+                '<h3></h3>'
+            ],
+            ['POST', [ 'login' => '12344', 'password' => '1323'],
+                '<h3>Неправильные логин или пароль</h3>',
+            ]
+        ];
+    }
+
+
     //Настройка конфигурации окружения
     protected function setUp(): void
     {
         //Установка переменной среды
-        $_SERVER['DOCUMENT_ROOT'] = '/srv/users/gbikybee/ydesnna-m2';
+        $_SERVER['DOCUMENT_ROOT'] = 'C:/xampp/htdocs';
 
    //Создаем экземпляр приложения
    $GLOBALS['app'] = new Src\Application(new Src\Settings([

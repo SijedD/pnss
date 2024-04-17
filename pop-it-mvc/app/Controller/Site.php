@@ -3,6 +3,7 @@
 namespace Controller;
 
 
+use Model\Division;
 use search\SubscriberSearch;
 use Model\Phone;
 use Model\Phone_number;
@@ -74,6 +75,7 @@ class Site
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
             app()->route->redirect('/admin');
+            return false;
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);
