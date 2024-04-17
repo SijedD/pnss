@@ -304,8 +304,10 @@ class Site
 
         if ($request->method === 'POST' && isset($_POST['search_query'])) {
             $search_query = $_POST['search_query'];
+            $searchableFields =['name','surname','patronymic'];
+            $query = Subscriber::query();
             if (!empty($search_query)) {
-                $subscriber = SubscriberSearch::search(Subscriber::query(), $search_query);
+                $subscriber = SubscriberSearch::search($query, $search_query,$searchableFields);
             }
         }
 
