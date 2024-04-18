@@ -141,7 +141,7 @@ class SiteTest extends TestCase
     protected function setUp(): void
     {
         //Установка переменной среды
-        $_SERVER['DOCUMENT_ROOT'] = '/srv/users/gbikybee/ydesnna-m2';
+        $_SERVER['DOCUMENT_ROOT'] = 'C:/xampp/htdocs';
 
    //Создаем экземпляр приложения
    $GLOBALS['app'] = new Src\Application(new Src\Settings([
