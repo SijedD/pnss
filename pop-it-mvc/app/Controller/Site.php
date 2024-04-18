@@ -118,6 +118,7 @@ class Site
             }
             if (Subscriber::create($request->all())) {
                 app()->route->redirect('/sis');
+                return false;
             }
         }
 
