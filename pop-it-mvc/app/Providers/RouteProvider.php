@@ -20,13 +20,18 @@ class RouteProvider extends AbstractProvider
             //Если префикс адреса api то удаляем не нужные middleware
             $this->app->settings->removeAppMiddleware('csrf');
             $this->app->settings->removeAppMiddleware('specialChars');
-
+            if ($this->checkPrefix('/api/login-api')) {
+                //Если префикс адреса api то удаляем не нужные middleware
+                $this->app->settings->removeAppMiddleware('csrf');
+                $this->app->settings->removeAppMiddleware('specialChars');
+                $this->app->settings->removeAppMiddleware('token');}
             //Загружаем маршруты из файла для апи
             Route::group('/api', function () {
                 require_once __DIR__ . '/../..' . $this->app->settings->getRoutePath() . '/api.php';
             });
             return;
         }
+       
 
         //Удаляем обработку json данных
         $this->app->settings->removeAppMiddleware('json');
