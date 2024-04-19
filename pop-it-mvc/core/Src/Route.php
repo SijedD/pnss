@@ -70,6 +70,7 @@ class Route
         return $this;
     }
 
+
     public function start(): void
     {
         // Fetch method and URI from somewhere

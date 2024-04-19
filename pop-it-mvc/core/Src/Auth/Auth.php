@@ -58,6 +58,12 @@ class Auth
         else return false;
     }
 
+    public static function checkToken(): bool
+    {
+        if (self::user()->api_token)  return true;
+        else return false;
+    }
+
     //Выход текущего пользователя
     public static function logout(): bool
     {

@@ -11,7 +11,7 @@
             <label><input type="text" name="surname" placeholder="Фамилия" class="inputReg"></label><br>
             <label><input type="text" name="patronymic" placeholder="Отчество" class="inputReg"></label><br>
             <label><input type="date" name="date_birth" placeholder="Дата рождения" class="inputReg"></label><br><br>
-            <label class="inputReg">Выберете подразделение</label><br>
+            <label class="inputReg">Выберете подраздеytrtление</label><br>
             <select name="Id_divisions" class="inputReg">
 
                     <?php

@@ -7,7 +7,8 @@ return [
     //Классы для middleware
     'routeMiddleware' => [
         'auth' => \Middlewares\AuthMiddleware::class,
-        'admin' => \Middlewares\AdminMiddleware::class
+        'admin' => \Middlewares\AdminMiddleware::class,
+        'token' => \Middlewares\TokenMiddleware::class
     ],
     'validators' => [
         'required' => Validator\RequireValidator::class,
@@ -18,6 +19,7 @@ return [
         'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
         'trim' => \Middlewares\TrimMiddleware::class,
         'json' => \Middlewares\JSONMiddleware::class,
+        'token' => \Middlewares\TokenMiddleware::class
     ],
     'providers' => [
         'kernel' => \Providers\KernelProvider::class,
